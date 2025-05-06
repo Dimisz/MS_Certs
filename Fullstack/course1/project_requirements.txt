@@ -1,0 +1,22 @@
+Inventory Management System Requirements
+
+Objective: Create a console application where users can manage product stock. 
+
+Core functionality: Users should be able to add new products, update stock, and remove products.
+
+Some key features include:
+- Add new products with name, price, and stock quantity.
+- Update stock when products are sold or restocked.
+- View all products and their stock levels.
+- Remove products from inventory.
+
+
+Program flow:
+1. Program prints menu of operations:
+  - add new product
+  - update stock 
+  - view all products
+  - remove product from inventory 
+  - quit 
+2. If user enters invalid input the program notifies the user about the invalid input and prints the menu again 
+3. Keep looping until the user selects 'Quit'
