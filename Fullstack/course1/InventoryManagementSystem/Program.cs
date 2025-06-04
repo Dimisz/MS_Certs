@@ -2,12 +2,33 @@
 using InventoryManagementSystem;
 using InventoryManagementSystem.Models;
 
-List<Product> prods = new();
-prods.Add(new Product
+Console.WriteLine("Welcome to the inventory management system!");
+Inventory inventory = new();
+int selectedOption = 0;
+do
 {
-  Name = "Jeans",
-  Price = 5,
-  Quantity = 10
-});
-string userChoice = UserInputHandler.GetProductName(prods);
-Console.WriteLine(userChoice);
+  MainMenu.PrintOptions();
+  selectedOption = MainMenu.SelectOperation();
+  switch (selectedOption)
+  {
+    case 1:
+      inventory.PrintAll();
+      break;
+    case 2:
+      inventory.AddProduct();
+      break;
+    case 3:
+      inventory.DeleteProduct();
+      break;
+    case 4:
+      Console.WriteLine("Changing inventory...");
+      break;
+    case 5:
+      Console.WriteLine("Exiting...");
+      break;
+    default:
+      Console.WriteLine("Invalid option...");
+      break;
+  }
+} while (selectedOption != 5);
+

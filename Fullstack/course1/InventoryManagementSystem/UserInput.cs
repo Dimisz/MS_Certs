@@ -3,7 +3,7 @@ using InventoryManagementSystem.Models;
 
 namespace InventoryManagementSystem;
 
-public static class AddProductInputsHandler
+public static class UserInput
 {
   // ASK USER TO GET A PRODUCT PRICE
   // keeps asking for input until user enters a valid positive number (double)
@@ -20,7 +20,7 @@ public static class AddProductInputsHandler
 
   // ASK USER TO ENTER PRODUCT QTY
   // keeps asking for input until user enters a valid positive number (int)
-  public static double GetProductQty()
+  public static int GetProductQty()
   {
     Console.WriteLine("Please, enter the product quantity");
     while (true)
@@ -74,5 +74,46 @@ public static class AddProductInputsHandler
       }
     }
     return false;
+  }
+
+  // ASKS USER TO ENTER INDEX OF A PRODUCT (TO DELETE OR TO EDIT QTY)
+  // Checks the input to be a valid int
+  // Checks for IndeOutOfBoundsException:
+  // - productsCount - current length of products list
+  public static int GetIndexOfProduct(int productsCount)
+  {
+    string? userInput;
+
+    while (true)
+    {
+      Console.WriteLine();
+      Console.WriteLine("Select a valid index or type 'q' to return to the main menu");
+      userInput = Console.ReadLine();
+      // user selected 'q' -> wants to quit the operation 
+      // and return to the main menu
+      if (!string.IsNullOrEmpty(userInput)
+          && string.Equals(userInput.ToLower().Trim(), "q"))
+      {
+        return -1;
+      }
+      if (int.TryParse(userInput, out int ind))
+      {
+        // we assume that user will enter indices starting with 1
+        // so we offset by 1
+        if (ind > 0 && ind <= productsCount)
+        {
+          // however, we return ready-to-use index without the offset
+          return ind - 1;
+        }
+        else
+        {
+          Console.WriteLine("Invalid index: value is too low or too high.");
+        }
+      }
+      else
+      {
+        Console.WriteLine("Please, enter a valid whole number");
+      }
+    }
   }
 }
