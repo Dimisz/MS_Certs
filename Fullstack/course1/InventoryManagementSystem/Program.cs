@@ -21,7 +21,7 @@ do
       inventory.DeleteProduct();
       break;
     case 4:
-      Console.WriteLine("Changing inventory...");
+      inventory.EditProductQty();
       break;
     case 5:
       Console.WriteLine("Exiting...");

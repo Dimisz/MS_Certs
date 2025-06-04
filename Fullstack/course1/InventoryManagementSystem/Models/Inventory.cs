@@ -33,11 +33,39 @@ public class Inventory
     }
 
     PrintAll();
-    int indexToDelete = UserInput.GetIndexOfProduct(Products.Count);
-    if (indexToDelete == -1)
+    int indexToEdit = UserInput.GetIndexOfProduct(Products.Count);
+    if (indexToEdit == -1)
     {
-      Console.WriteLine("Quitting the operation. Returning to the main menu...");
+      Console.WriteLine("No changes saved. Returning to the main menu...");
       return;
+    }
+
+    while (true)
+    {
+      Console.WriteLine($"Product name: {Products[indexToEdit].Name}, current quantity: {Products[indexToEdit].Quantity}");
+      Console.WriteLine("Enter the new quantity for the product or type 'q' to cancel the operation:");
+
+      string? userInput = Console.ReadLine();
+      if (!string.IsNullOrEmpty(userInput) && string.Equals(userInput.ToLower().Trim(), "q"))
+      {
+        Console.WriteLine("No changes saved. Returning to the main menu...");
+        return;
+      }
+      if (int.TryParse(userInput, out int newQty))
+      {
+        if (newQty < 0)
+        {
+          Console.WriteLine("Quantity cannot be lower than 0");
+          continue;
+        }
+        else
+        {
+          Products[indexToEdit].Quantity = newQty;
+          Console.WriteLine("Quantity of the product has been changed successfully.");
+          Console.WriteLine("Returning to the main menu...");
+          return;
+        }
+      }
     }
   }
 
@@ -53,7 +81,7 @@ public class Inventory
     int indexToDelete = UserInput.GetIndexOfProduct(Products.Count);
     if (indexToDelete == -1)
     {
-      Console.WriteLine("Quitting the operation. Returning to the main menu...");
+      Console.WriteLine("No changes saved. Returning to the main menu...");
       return;
     }
     Products.RemoveAt(indexToDelete);

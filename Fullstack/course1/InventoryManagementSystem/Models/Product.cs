@@ -15,9 +15,9 @@ public class Product
     }
     set
     {
-      if (_quantity + value >= 0)
+      if (value >= 0)
       {
-        _quantity += value;
+        _quantity = value;
       }
       else
       {
