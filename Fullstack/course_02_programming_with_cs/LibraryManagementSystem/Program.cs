@@ -44,7 +44,8 @@ while (keepRunning)
       break;
     case 5:
       // check in
-      Console.WriteLine("Hi");
+      string titleToReturn = UserInput.GetStringInput("Please, enter the title of a book you want to borrow:");
+      user.CheckIn(managementSystem.SearchByTitle(titleToReturn), titleToReturn);
       break;
 
     case 6:
