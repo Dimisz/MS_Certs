@@ -6,10 +6,35 @@ public class ManagementSystem(int maxBooksStored)
 
   public readonly List<string> MenuOptions = [
     "Print out all the books",
+    "Search for a book by title",
     "Add a book",
     "Remove a book",
+    "Check a book out",
+    "Check a book in",
     "Exit",
   ];
+
+  public Book? SearchByTitle(string title)
+  {
+    if (Contains(title))
+    {
+      Console.WriteLine($"The book '{title}' is available.");
+      for (int i = 0; i < Books.Count; i++)
+      {
+        if (string.Equals(Books[i].Title, title))
+        {
+          return Books[i];
+        }
+        Console.WriteLine();
+      }
+    }
+    else
+    {
+      Console.WriteLine($"The book '{title}' is not available.");
+    }
+    Console.WriteLine();
+    return null;
+  }
 
   public void PrintMenu()
   {
