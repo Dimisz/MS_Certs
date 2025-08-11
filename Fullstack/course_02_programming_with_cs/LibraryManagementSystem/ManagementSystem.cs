@@ -4,19 +4,48 @@ public class ManagementSystem(int maxBooksStored)
 {
   public List<Book> Books { get; } = new List<Book>(maxBooksStored);
 
+  public readonly List<string> MenuOptions = [
+    "Print out all the books",
+    "Add a book",
+    "Remove a book",
+    "Exit",
+  ];
+
+  public void PrintMenu()
+  {
+    Console.WriteLine();
+    Console.WriteLine("Available operations:");
+    for (int i = 0; i < MenuOptions.Count; i++)
+    {
+
+      Console.WriteLine($"{i + 1}. {MenuOptions[i]}");
+    }
+  }
   public void RemoveBook(string title)
   {
     if (string.IsNullOrEmpty(title) || string.IsNullOrWhiteSpace(title))
     {
       Console.WriteLine("Book title cannot be empty");
+      Console.WriteLine();
       return;
     }
 
     if (!Contains(title))
     {
-      Console.Write($"There's no book with the title '{title}' in the collection.");
+      Console.WriteLine($"There's no book with the title '{title}' in the collection.");
+      Console.WriteLine();
       return;
     }
+
+    for (int i = 0; i < Books.Count; i++)
+    {
+      if (string.Equals(Books[i].Title, title))
+      {
+        Books.RemoveAt(i);
+        return;
+      }
+    }
+    Console.WriteLine();
   }
 
   public void AddBook(string title)
@@ -40,7 +69,23 @@ public class ManagementSystem(int maxBooksStored)
     }
 
     Books.Add(new Book(title));
-    Console.Write($"The book with the title {title} has been added successfully");
+    Console.WriteLine($"The book with the title '{title}' has been added successfully");
+    Console.WriteLine();
+  }
+
+  public void DisplayBooks()
+  {
+    if (Books.Count == 0)
+    {
+      Console.WriteLine("There no books in the system yet.");
+      return;
+    }
+    Console.WriteLine("The collection currently contains the following titles:");
+    for (int i = 0; i < Books.Count; i++)
+    {
+      Console.WriteLine($"{i + 1}. {Books[i].Title}.");
+    }
+    Console.WriteLine();
   }
 
   private bool Contains(string title)
